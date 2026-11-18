@@ -116,7 +116,7 @@ document.addEventListener('click', async e => {
     else if (admBtn.dataset.admdel) admExcluir(admBtn.dataset.admdel);
     else if (admBtn.dataset.admcol){ admCol = admBtn.dataset.admcol; $('#admPedidos').innerHTML = admHTML(); }
     else if (admBtn.id === 'admAtualizar') admCarregar();
-    else if (admBtn.id === 'admSair'){ LS.del(ADM_LS); admLista = null; admUltimoId = null; admErro = ''; renderPainel(); }
+    else if (admBtn.id === 'admSair'){ ADMS.del(); admLista = null; admUltimoId = null; admErro = ''; renderPainel(); }
     return;
   }
   const mpBtn = e.target.closest && e.target.closest('[data-cancelar], [data-ocultar], #mpAtualizar');
@@ -151,7 +151,7 @@ document.addEventListener('click', async e => {
   }
   // ---- Painel ----
   if (t.id === 'reabrirSenha'){ pedirSenha(); return; }
-  if (t.id === 'sairPainel'){ LS.del(ADM_LS); painelLiberado = false; admLista = null; admUltimoId = null; location.href = 'index.html'; return; }
+  if (t.id === 'sairPainel'){ ADMS.del(); painelLiberado = false; admLista = null; admUltimoId = null; location.href = 'index.html'; return; }
   if (d.aba){ abaPainel = d.aba; renderPainel(); return; }
   if (d.fped){ filtroPed = d.fped; renderPainel(); return; }
   if (d.atualizarped !== undefined){ renderPainel(); toast('Pedidos atualizados.'); return; }

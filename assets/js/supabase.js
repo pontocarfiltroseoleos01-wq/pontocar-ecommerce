@@ -141,8 +141,15 @@ function enderecoTexto(c){ if (!c) return ''; return `${c.rua}, ${c.numero}${c.c
    ================================================================= */
 const ADM_UID = 'e4525025-1bbd-4f56-a3e5-277566fbfe4c';
 const ADM_LS = 'pc_adm_sessao';
+// Login da loja fica só nesta aba do navegador: ao fechar a aba ou o navegador, pede a senha de novo
+const ADMS = {
+  get(){ try { const v = sessionStorage.getItem(ADM_LS); return v ? JSON.parse(v) : null; } catch(e){ return null; } },
+  set(v){ try { sessionStorage.setItem(ADM_LS, JSON.stringify(v)); } catch(e){} },
+  del(){ try { sessionStorage.removeItem(ADM_LS); } catch(e){} }
+};
+try { localStorage.removeItem(ADM_LS); } catch(e){}  // apaga o login antigo, que ficava salvo para sempre
 let admCol = 'novo', admUltimoId = null, admCarregando = false, admLista = null, admErro = '';
-const admSessao = () => LS.get(ADM_LS, null);
+const admSessao = () => ADMS.get();
 async function admAuth(corpo, tipo){
   let r;
   try { r = await fetch(`${SB_URL}/auth/v1/token?grant_type=${tipo}`, { method: 'POST', headers: { apikey: SB_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(corpo) }); }
@@ -150,13 +157,13 @@ async function admAuth(corpo, tipo){
   const j = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(/invalid/i.test(j.error_description || j.msg || j.message || '') ? 'E-mail ou senha incorretos.' : (j.error_description || j.msg || j.message || 'Não foi possível entrar.'));
   const sess = { access_token: j.access_token, refresh_token: j.refresh_token, expires_at: j.expires_at || (Math.floor(Date.now() / 1000) + (j.expires_in || 3600)), email: (j.user && j.user.email) || '', uid: (j.user && j.user.id) || '' };
-  LS.set(ADM_LS, sess); return sess;
+  ADMS.set(sess); return sess;
 }
 async function admToken(){
   let ss = admSessao(); if (!ss) return null;
   if ((ss.expires_at || 0) - 60 < Date.now() / 1000){
     try { ss = await admAuth({ refresh_token: ss.refresh_token }, 'refresh_token'); }
-    catch(e){ LS.del(ADM_LS); return null; }
+    catch(e){ ADMS.del(); return null; }
   }
   return ss.access_token;
 }
@@ -165,7 +172,7 @@ async function admFetch(caminho, opts = {}){
   let r;
   try { r = await fetch(SB_URL + '/rest/v1/' + caminho, Object.assign({}, opts, { headers: Object.assign({ apikey: SB_KEY, Authorization: 'Bearer ' + tk, 'Content-Type': 'application/json' }, opts.headers || {}) })); }
   catch(e){ throw new Error('Sem conexão com a internet.'); }
-  if (r.status === 401){ LS.del(ADM_LS); throw new Error('LOGIN'); }
+  if (r.status === 401){ ADMS.del(); throw new Error('LOGIN'); }
   const txt = await r.text(); let j = null; try { j = txt ? JSON.parse(txt) : null; } catch(e){}
   if (!r.ok) throw new Error((j && j.message) || ('Erro ' + r.status));
   return j;
