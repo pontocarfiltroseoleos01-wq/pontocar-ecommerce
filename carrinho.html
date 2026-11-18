@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seu pedido — Ponto Car</title>
+<meta name="description" content="Ponto Car: filtros e óleos para o seu carro. Escolha, monte seu pedido e finalize aqui no site.">
+<meta name="theme-color" content="#07120D">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ponto Car">
+<meta property="og:title" content="Ponto Car — O ponto certo do seu carro">
+<meta property="og:description" content="Filtros e óleos para o seu carro. Pesquise pelo modelo, escolha e faça seu pedido aqui no site.">
+<meta property="og:url" content="https://pontocarfiltroseoleos01-wq.github.io/pontocar-ecommerce/">
+<meta property="og:image" content="https://pontocarfiltroseoleos01-wq.github.io/pontocar-ecommerce/assets/img/preview.jpg">
+<meta property="og:image:secure_url" content="https://pontocarfiltroseoleos01-wq.github.io/pontocar-ecommerce/assets/img/preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mascote da Ponto Car fazendo joia, com o nome da loja e a frase O ponto certo do seu carro">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/css/variables.css?v=202611172044">
+<link rel="stylesheet" href="assets/css/style.css?v=202611172044">
+<script>document.write('<script src="estoque.js?v=' + Date.now() + '"><\/script>');</script>
+</head>
+<body data-pagina="carrinho">
+
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="index.html" aria-label="Ponto Car — início">
+      <img class="mascote" src="assets/img/mascote.webp" alt="Mascote Ponto Car">
+      <div><b>PONTO <span>CAR</span></b><small id="fraseTopo">O ponto certo do seu carro</small></div>
+    </a>
+    <div class="busca" role="search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <label for="q" class="sr">Buscar</label>
+      <input id="q" type="search" autocomplete="off" placeholder="Busque por nome, marca, código ou carro (ex.: Gol 2015)">
+      <button class="limpar hide" id="limparBusca" aria-label="Limpar busca">×</button>
+    </div>
+    <div class="top-acoes">
+      <button class="btn-painel" id="abrirConta" type="button" aria-label="Minha conta" title="Minha conta">👤 <span class="so-lg" id="contaRotulo">Entrar</span><span class="so-sm" id="contaRotulo2">Conta</span></button>
+      <button class="btn-painel" id="abrirMeus" type="button" aria-label="Meus pedidos" title="Meus pedidos">📦 <span class="so-lg">Meus pedidos</span><span class="so-sm">Pedidos</span></button>
+      <button class="btn-painel" id="abrirPainel" type="button" aria-label="Painel ponto car" title="Painel ponto car">🔒<span class="so-lg"> Painel ponto car</span></button>
+    </div>
+  </div>
+  <div class="carro-bar" id="carroBar"></div>
+</header>
+
+<!-- ================= MEUS PEDIDOS / PAGAMENTO ================= -->
+<div class="wrap" id="vPedido">
+  <div class="tela">
+    <button class="voltar" type="button" data-ir="">← Continuar comprando</button>
+    <h1>Seu pedido</h1>
+
+    <div class="box" id="boxItens">
+      <h2><span class="nn">1</span> Itens do pedido</h2>
+      <ul class="itens" id="coItens"></ul>
+      <div class="big-total"><span>Subtotal</span><strong id="coTotal">R$ 0,00</strong></div>
+      <div id="coSugestoes"></div>
+      <div class="acoes" id="acoesItens">
+        <button class="btn btn-ouro" id="btnProsseguir" type="button">Prosseguir para pagamento →</button>
+        <button class="btn btn-linha" type="button" data-ir="">+ Adicionar mais itens</button>
+      </div>
+    </div>
+
+    <form id="coForm" class="hide" novalidate>
+      <div id="cliCheckout" class="cli-box"></div>
+      <div class="box">
+        <h2><span class="nn">2</span> Seus dados e o carro</h2>
+        <label class="lbl" for="fNome">Seu nome <i>*</i></label>
+        <input class="in" id="fNome" autocomplete="name" placeholder="Ex.: João da Silva">
+        <div class="msg-erro hide" id="eNome">Digite seu nome para continuar.</div>
+
+        <label class="lbl" for="fTel">Seu telefone (WhatsApp) <i>*</i></label>
+        <input class="in" id="fTel" type="tel" inputmode="tel" autocomplete="tel" placeholder="Ex.: (16) 99999-0000">
+        <div class="msg-erro hide" id="eTel">Digite seu telefone com DDD. A loja usa esse número para falar com você sobre o pedido.</div>
+
+        <div class="lbl">Seu carro <i>*</i></div>
+        <div id="coCarro"></div>
+        <div class="msg-erro hide" id="eCarro">Informe o modelo e o ano do carro (ex.: Gol 2015).</div>
+      </div>
+
+      <div class="box">
+        <h2><span class="nn">3</span> Como quer receber</h2>
+        <div class="escolhas c2">
+          <label class="esc"><input type="radio" name="receber" value="retirada" checked><span class="bol"></span><span><b>🏪 Retirar na loja</b><span class="s" id="retiradaInfo">Você busca quando estiver pronto.</span></span></label>
+          <label class="esc"><input type="radio" name="receber" value="entrega"><span class="bol"></span><span><b>🛵 Entrega</b><span class="s" id="entregaInfo">Informe o endereço logo abaixo.</span></span></label>
+        </div>
+        <div class="sub hide" id="subEntrega"></div>
+        <div class="sub hide" id="subEndereco">
+          <label class="lbl" for="fEndereco" style="margin-top:0">Endereço da entrega <i>*</i></label>
+          <textarea class="in" id="fEndereco" autocomplete="street-address" placeholder="Rua, número, bairro e um ponto de referência"></textarea>
+          <div class="msg-erro hide" id="eEndereco">Digite o endereço da entrega.</div>
+          <p class="prov" style="font-size:13px">Se o seu bairro não estiver na lista, a loja combina a taxa de entrega com você pelo telefone.</p>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2><span class="nn">4</span> Forma de pagamento</h2>
+        <div class="escolhas c3">
+          <label class="esc"><input type="radio" name="pag" value="pix"><span class="bol"></span><span><b>Pix</b><span class="s" id="pixDescInfo">Chave Pix aqui no site.</span></span></label>
+          <label class="esc"><input type="radio" name="pag" value="cartao"><span class="bol"></span><span><b>Cartão</b><span class="s">Crédito ou débito, na maquininha.</span></span></label>
+          <label class="esc"><input type="radio" name="pag" value="dinheiro"><span class="bol"></span><span><b>Dinheiro</b><span class="s">Calculamos o troco.</span></span></label>
+        </div>
+        <div class="msg-erro hide" id="ePag">Escolha a forma de pagamento.</div>
+        <div class="cupom-box">
+          <label class="lbl" for="fCupom">Tem cupom de desconto?</label>
+          <div class="chave"><input class="in" id="fCupom" placeholder="Digite o código" autocomplete="off" style="flex:1;min-width:0;text-transform:uppercase"><button class="btn btn-verde btn-sm" type="button" id="aplicarCupom">Aplicar</button></div>
+          <div class="cupom-msg" id="cupomMsg"></div>
+        </div>
+
+        <div class="sub hide" id="subPix">
+          <b>Chave Pix da Ponto Car</b>
+          <div class="chave" style="margin-top:8px"><code id="pixChaveTxt"></code><button class="btn btn-verde btn-sm" type="button" id="copiarChave">Copiar chave</button></div>
+          <p class="prov" style="font-size:13px">Pague só depois que a loja confirmar a disponibilidade.</p>
+        </div>
+        <div class="sub hide" id="subCartao">
+          <b>Tipo de cartão</b>
+          <div class="escolhas c2" style="margin-top:8px">
+            <label class="esc"><input type="radio" name="cartao" value="credito"><span class="bol"></span><span><b>Crédito</b></span></label>
+            <label class="esc"><input type="radio" name="cartao" value="debito"><span class="bol"></span><span><b>Débito</b></span></label>
+          </div>
+          <div class="msg-erro hide" id="eCartao">Escolha crédito ou débito.</div>
+          <p class="prov" style="font-size:13px">O pagamento é feito na maquininha, na retirada ou na entrega.</p>
+        </div>
+        <div class="sub hide" id="subDinheiro">
+          <label class="lbl" for="fTroco" style="margin-top:0">Troco para quanto?</label>
+          <input class="in" id="fTroco" inputmode="decimal" placeholder="Ex.: 100,00">
+          <label class="check"><input type="checkbox" id="fSemTroco"> Não preciso de troco (valor certo)</label>
+          <div class="troco-calc" id="trocoCalc"></div>
+          <div class="msg-erro hide" id="eTroco"></div>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>💰 Valores</h2>
+        <div id="coValores"></div>
+      </div>
+
+      <div class="box">
+        <h2><span class="nn">5</span> Observações <small style="font-weight:500;color:var(--muted);font-size:13px">(opcional)</small></h2>
+        <textarea class="in" id="fObs" placeholder="Ex.: retiro às 17h / quero a mesma peça que troquei da última vez"></textarea>
+      </div>
+
+
+      <div class="box">
+        <label class="priv-check"><input type="checkbox" id="fPriv"><span>Li a <button class="link-btn2" type="button" data-privacidade><b>Política de Privacidade</b></button> e sei como a Ponto Car usa os meus dados para atender o pedido. <i style="color:#B3261E">*</i></span></label>
+        <div class="msg-erro hide" id="ePriv">Para finalizar, confirme que leu a Política de Privacidade.</div>
+      </div>
+
+      <div class="acoes">
+        <button class="btn btn-ouro" id="btnFinalizar" type="submit">Finalizar pedido · <span id="totalBtn">R$ 0,00</span></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= RESUMO FINAL ================= -->
+<div class="wrap hide" id="vResumo"><div class="tela" id="resumoIn"></div></div>
+
+<footer class="rod">
+  <img class="rod-masc" src="assets/img/mascote-joia.webp" alt="" width="54" height="60">
+  <div><b>PONTO CAR</b> · <span id="fraseRod">O ponto certo do seu carro</span></div>
+  <div id="endRod"></div>
+  <div>Atendimento pelo WhatsApp <span id="zapsRod"></span></div>
+  <div id="redesRod"></div>
+  <div style="margin-top:6px"><button class="link-btn2" type="button" data-privacidade>Política de privacidade</button></div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="modalHost"></div>
+<script src="assets/js/core.js?v=202611172044"></script>
+<script src="assets/js/supabase.js?v=202611172044"></script>
+<script src="assets/js/catalog.js?v=202611172044"></script>
+<script src="assets/js/cart.js?v=202611172044"></script>
+<script src="assets/js/conta.js?v=202611172044"></script>
+<script src="assets/js/app.js?v=202611172044"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Minha conta — Ponto Car</title>
+<meta name="description" content="Ponto Car: filtros e óleos para o seu carro. Escolha, monte seu pedido e finalize aqui no site.">
+<meta name="theme-color" content="#07120D">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ponto Car">
+<meta property="og:title" content="Ponto Car — O ponto certo do seu carro">
+<meta property="og:description" content="Filtros e óleos para o seu carro. Pesquise pelo modelo, escolha e faça seu pedido aqui no site.">
+<meta property="og:url" content="https://pontocarfiltroseoleos01-wq.github.io/pontocar-ecommerce/">
+<meta property="og:image" content="https://pontocarfiltroseoleos01-wq.github.io/pontocar-ecommerce/assets/img/preview.jpg">
+<meta property="og:image:secure_url" content="https://pontocarfiltroseoleos01-wq.github.io/pontocar-ecommerce/assets/img/preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mascote da Ponto Car fazendo joia, com o nome da loja e a frase O ponto certo do seu carro">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/css/variables.css?v=202611172044">
+<link rel="stylesheet" href="assets/css/style.css?v=202611172044">
+<script>document.write('<script src="estoque.js?v=' + Date.now() + '"><\/script>');</script>
+</head>
+<body data-pagina="conta">
+
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="index.html" aria-label="Ponto Car — início">
+      <img class="mascote" src="assets/img/mascote.webp" alt="Mascote Ponto Car">
+      <div><b>PONTO <span>CAR</span></b><small id="fraseTopo">O ponto certo do seu carro</small></div>
+    </a>
+    <div class="busca" role="search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <label for="q" class="sr">Buscar</label>
+      <input id="q" type="search" autocomplete="off" placeholder="Busque por nome, marca, código ou carro (ex.: Gol 2015)">
+      <button class="limpar hide" id="limparBusca" aria-label="Limpar busca">×</button>
+    </div>
+    <div class="top-acoes">
+      <button class="btn-painel" id="abrirConta" type="button" aria-label="Minha conta" title="Minha conta">👤 <span class="so-lg" id="contaRotulo">Entrar</span><span class="so-sm" id="contaRotulo2">Conta</span></button>
+      <button class="btn-painel" id="abrirMeus" type="button" aria-label="Meus pedidos" title="Meus pedidos">📦 <span class="so-lg">Meus pedidos</span><span class="so-sm">Pedidos</span></button>
+      <button class="btn-painel" id="abrirPainel" type="button" aria-label="Painel ponto car" title="Painel ponto car">🔒<span class="so-lg"> Painel ponto car</span></button>
+    </div>
+  </div>
+  <div class="carro-bar" id="carroBar"></div>
+</header>
+
+<!-- ================= MINHA CONTA (CLIENTE) ================= -->
+<div class="wrap" id="vConta"><div class="tela" id="contaIn"></div></div>
+
+<footer class="rod">
+  <img class="rod-masc" src="assets/img/mascote-joia.webp" alt="" width="54" height="60">
+  <div><b>PONTO CAR</b> · <span id="fraseRod">O ponto certo do seu carro</span></div>
+  <div id="endRod"></div>
+  <div>Atendimento pelo WhatsApp <span id="zapsRod"></span></div>
+  <div id="redesRod"></div>
+  <div style="margin-top:6px"><button class="link-btn2" type="button" data-privacidade>Política de privacidade</button></div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="modalHost"></div>
+<script src="assets/js/core.js?v=202611172044"></script>
+<script src="assets/js/supabase.js?v=202611172044"></script>
+<script src="assets/js/catalog.js?v=202611172044"></script>
+<script src="assets/js/cart.js?v=202611172044"></script>
+<script src="assets/js/conta.js?v=202611172044"></script>
+<script src="assets/js/app.js?v=202611172044"></script>
+</body>
+</html>
