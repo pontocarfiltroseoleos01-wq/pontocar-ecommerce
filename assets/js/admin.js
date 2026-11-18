@@ -6,7 +6,7 @@ const GH_PADRAO = { owner: 'pontocarfiltroseoleos01-wq', repo: 'pontocar-ecommer
 function ghConfig(){
   const c = LS.get('pc_github', {}) || {}; let owner = c.owner, repo = c.repo;
   const m = location.hostname.match(/^([^.]+)\.github\.io$/i);
-  if (m){ owner = owner || m[1]; const seg = location.pathname.split('/').filter(Boolean)[0]; if (seg && !/\.html?$/i.test(seg)) repo = repo || seg; }
+  if (m){ owner = m[1]; const seg = location.pathname.split('/').filter(Boolean)[0]; if (seg && !/\.html?$/i.test(seg)) repo = seg; }  // publica sempre no repositório deste site
   return { owner: owner || GH_PADRAO.owner, repo: repo || GH_PADRAO.repo, branch: c.branch || GH_PADRAO.branch, token: c.token || '' };
 }
 const ghConectado = () => !!ghConfig().token;
