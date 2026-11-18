@@ -1,0 +1,13 @@
+/* Ponto Car — cores, fontes e variáveis globais */
+:root{
+  --preto:#07120D; --profundo:#06401F; --bandeira:#00843D; --ouro:#D4AF37; --branco:#FFFFFF; --cinza:#C9D3CC; --grafite:#0B1A12;
+  --bg:#EEF3EF; --surface:#FFFFFF; --surface2:#F4F7F5; --txt:#0B1A12; --muted:#4F6157; --line:#C9D3CC;
+  --shadow:0 1px 2px rgba(7,18,13,.06),0 6px 18px rgba(7,18,13,.07);
+  --r:16px; --font:'Archivo',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#07120D; --surface:#0F2018; --surface2:#13291E; --txt:#FFFFFF; --muted:#C9D3CC; --line:rgba(201,211,204,.2);
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);}
+}
+@media (prefers-color-scheme:light){:root{--bg:#F6F3EA;--surface:#FFFFFF;--surface2:#FBF9F3;--line:#E6DFCB}}
+@media (prefers-color-scheme:dark){:root{--bg:#060E0A;--surface:#0D1B14;--surface2:#11231A;--line:rgba(212,162,26,.22)}}
