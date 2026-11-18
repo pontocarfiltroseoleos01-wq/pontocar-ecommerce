@@ -119,6 +119,8 @@ document.addEventListener('click', async e => {
     else if (admBtn.id === 'admSair'){ ADMS.del(); admLista = null; admUltimoId = null; admErro = ''; renderPainel(); }
     return;
   }
+  const pgBtn = e.target.closest && e.target.closest('[data-pagar]');
+  if (pgBtn){ pagarMeuPedido(pgBtn.dataset.pagar, pgBtn); return; }
   const mpBtn = e.target.closest && e.target.closest('[data-cancelar], [data-ocultar], #mpAtualizar');
   if (mpBtn){ if (mpBtn.id === 'mpAtualizar') renderMeus(); else if (mpBtn.dataset.ocultar) ocultarMeuPedido(mpBtn.dataset.ocultar); else cancelarMeuPedido(mpBtn.dataset.cancelar); return; }
   const t = e.target.closest('button, a');

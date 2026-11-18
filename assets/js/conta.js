@@ -111,7 +111,9 @@ function mpCard(p){
   const itens = Array.isArray(p.itens) ? p.itens : [];
   const zap = (D.loja.whatsapp || []).filter(Boolean)[0];
   let acao = '';
-  if (st === 'novo') acao = `<button class="btn btn-linha btn-sm" type="button" data-cancelar="${esc(p.numero)}">Cancelar pedido</button>`;
+  const pago = /^✅/.test(p.forma_pagamento || '');
+  if (st === 'novo' && pago) acao = `<span class="mp-info">Pedido pago. Para cancelar, fale com a loja.</span>`;
+  else if (st === 'novo') acao = `<button class="btn btn-linha btn-sm" type="button" data-cancelar="${esc(p.numero)}">Cancelar pedido</button>`;
   else if (st === 'cancelado' || st === 'finalizado') acao = `<button class="btn btn-linha btn-sm" type="button" data-ocultar="${esc(p.numero)}">🗑️ Excluir da lista</button>`;
   else if (st === 'andamento') acao = `<span class="mp-info">Para cancelar, fale com a loja${zap ? ` · <a target="_blank" rel="noopener" href="https://wa.me/${esc(String(zap).replace(/\D/g, ''))}">${esc(fone(zap))}</a>` : ''}</span>`;
   return `<article class="mp-card st-${esc(st)}">
@@ -119,9 +121,29 @@ function mpCard(p){
       <span class="mp-st st-${esc(st)}">${esc(MP_STATUS[st] || st)}</span></div>
     <ul class="mp-itens">${itens.map(i => `<li><span>${esc(i.quantidade)}x ${esc(i.nome)}</span><span>${brl(i.subtotal)}</span></li>`).join('')}</ul>
     <div class="mp-rod"><div><b>Total: ${brl(p.valor_total)}</b><div class="mp-info">${esc(p.forma_pagamento || '')}</div></div>${acao}</div>
-    ${st === 'novo' ? '<div class="mp-aviso">⏳ Aguardando a loja. Você pode cancelar enquanto o pedido estiver como “Recebido”.</div>' : ''}
+    ${mpPodePagar(p) ? `<div class="mp-aviso" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">💳 Pagamento online ainda não concluído. <button class="btn btn-ouro btn-sm" type="button" data-pagar="${esc(p.numero)}">Pagar agora</button></div>` : ''}
+    ${st === 'novo' ? (pago ? '<div class="mp-aviso">⏳ Pagamento confirmado. Aguardando a loja separar o seu pedido.</div>' : '<div class="mp-aviso">⏳ Aguardando a loja. Você pode cancelar enquanto o pedido estiver como “Recebido”.</div>') : ''}
   </article>`;
 }
+function mpPodePagar(p){
+  return String(p.status) !== 'cancelado' && /^Pagamento online/.test(p.forma_pagamento || '') && !!mpLocais().find(x => String(x.num) === String(p.numero));
+}
+async function pagarMeuPedido(num, btn){
+  const o = mpLocais().find(x => String(x.num) === String(num));
+  if (!o){ toast('Abra este pedido no aparelho em que ele foi feito para pagar.'); return; }
+  if (btn){ btn.disabled = true; btn.textContent = 'Abrindo…'; }
+  try { await mpIrPagar(o.num, o.token); }
+  catch(err){ toast(err.message); if (btn){ btn.disabled = false; btn.textContent = 'Pagar agora'; } }
+}
+// Mensagem ao voltar do Mercado Pago
+(function(){
+  const q = new URLSearchParams(location.search); const v = q.get('mp'); if (!v) return;
+  const n = q.get('n') || '';
+  const msg = { ok: `✅ Pagamento do pedido Nº ${n} recebido! A confirmação aparece aqui em alguns instantes.`, pendente: `⏳ Pagamento do pedido Nº ${n} em análise. Assim que for aprovado, ele aparece como pago aqui.`, erro: `❌ O pagamento do pedido Nº ${n} não foi concluído. Você pode tentar de novo pelo botão “Pagar agora”.` }[v];
+  history.replaceState(null, '', location.pathname + location.hash);
+  if (msg) setTimeout(() => { toast(msg); }, 600);
+  if (v === 'ok' || v === 'pendente') [4000, 10000, 20000].forEach(t => setTimeout(() => { if (rotaAtual() === 'meus') renderMeus(); }, t));
+})();
 async function renderMeus(){
   const box = $('#meusIn'); if (!box) return;
   const topo = `<button class="voltar" type="button" data-ir="">← Voltar à loja</button><h1>📦 Meus pedidos</h1>`;

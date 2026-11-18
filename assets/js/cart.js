@@ -128,6 +128,7 @@ function mostrarSubPag(){ if (!$('#subPix')) return;
   $('#subPix').classList.toggle('hide', p !== 'pix');
   $('#subCartao').classList.toggle('hide', p !== 'cartao');
   $('#subDinheiro').classList.toggle('hide', p !== 'dinheiro');
+  if ($('#subOnline')) $('#subOnline').classList.toggle('hide', p !== 'online');
   if (p) $('#ePag').classList.add('hide');
 }
 function atualizarTroco(){ if (!$('#fTroco')) return;
@@ -210,7 +211,24 @@ function pixCopiaCola(valor, txid){
 }
 
 /* ---------- Pedido: texto e envio ---------- */
-const PAG_NOME = { pix:'Pix', credito:'Cartão de crédito (maquininha)', debito:'Cartão de débito (maquininha)', dinheiro:'Dinheiro' };
+const PAG_NOME = { pix:'Pix', credito:'Cartão de crédito (maquininha)', debito:'Cartão de débito (maquininha)', dinheiro:'Dinheiro', online:'Pagamento online (Mercado Pago)' };
+
+/* ---------- Pagamento online (Mercado Pago) ---------- */
+// 'teste' = só aparece abrindo o carrinho com ?mpteste=1 · 'ligado' = aparece para todos · 'desligado' = some
+const MP_ONLINE = 'teste';
+(function(){ try { if (/[?&]mpteste=1/.test(location.search)) sessionStorage.setItem('pc_mpteste', '1'); } catch(e){} })();
+function mpLigado(){
+  if (MP_ONLINE === 'ligado') return true;
+  if (MP_ONLINE !== 'teste') return false;
+  try { return sessionStorage.getItem('pc_mpteste') === '1'; } catch(e){ return false; }
+}
+async function mpIrPagar(num, token){
+  const r = await fetch(`${SB_URL}/functions/v1/mp-criar`, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: SB_KEY }, body: JSON.stringify({ numero: String(num), token: String(token || '') }) });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok || !d.url) throw new Error(d.erro || 'Não foi possível abrir o pagamento agora.');
+  location.href = d.url;
+}
+(function(){ const el = $('#pagOnline'); if (!el || !mpLigado()) return; el.classList.remove('hide'); const g = el.parentElement; g.classList.remove('c3'); g.classList.add('c2'); })();
 function carroTexto(c){ return [c.marca, c.modelo, c.versao, c.ano, c.combustivel ? `(${c.combustivel})` : ''].filter(Boolean).join(' '); }
 function pagTexto(o){
   if (o.pag === 'dinheiro') return o.trocoPara ? `Dinheiro — troco para ${brl(o.trocoPara)} (troco: ${brl(o.trocoPara - o.total)})` : 'Dinheiro — sem troco (valor certo)';
@@ -293,6 +311,12 @@ async function finalizar(ev){
   carrinho = {}; LS.set('pc_carrinho', carrinho); formAberto = false; cupomAplicado = ''; cupomOk = { codigo: '', pct: 0 }; $('#fCupom').value = ''; $('#cupomMsg').textContent = '';
   $('#fEndereco').value = ''; $('#fObs').value = ''; $('#fPriv').checked = false;
   btn.disabled = false; btn.innerHTML = `Finalizar pedido · <span id="totalBtn">${brl(0)}</span>`;
+  if (o.pag === 'online' && o.token){
+    btn.disabled = true; btn.textContent = 'Abrindo o pagamento…';
+    try { await mpIrPagar(o.num, o.token); sincronizarSupabase(); return; }
+    catch(err){ toast(err.message + ' Você pode pagar depois, em Meus pedidos.'); }
+    btn.disabled = false; btn.innerHTML = `Finalizar pedido · <span id="totalBtn">${brl(0)}</span>`;
+  }
   ir('resumo');
   sincronizarSupabase();
 }
@@ -347,6 +371,11 @@ function renderResumo(){ if (!$('#resumoIn')) return;
       <div class="big-total"><span>Total</span><strong>${brl(o.total)}</strong></div>
 
     </div>
+    ${o.pag === 'online' && o.token ? `<div class="box">
+      <h2>Pagamento online</h2>
+      <p class="prov">O pagamento ainda não foi concluído. Clique abaixo para pagar com Pix ou cartão pelo Mercado Pago.</p>
+      <button class="btn btn-ouro" type="button" data-pagar="${esc(o.num)}">💳 Pagar agora · ${brl(o.total)}</button>
+    </div>` : ''}
     ${pix ? `<div class="box">
       <h2>Pagamento por Pix</h2>
       <div class="aviso" style="margin-bottom:12px"><span>⏳</span><span>Pague <b>depois</b> que a loja entrar em contato para confirmar o pedido.</span></div>
