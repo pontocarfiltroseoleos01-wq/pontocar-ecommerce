@@ -106,6 +106,7 @@
           <label class="esc"><input type="radio" name="pag" value="pix"><span class="bol"></span><span><b>Pix</b><span class="s" id="pixDescInfo">Chave Pix aqui no site.</span></span></label>
           <label class="esc"><input type="radio" name="pag" value="cartao"><span class="bol"></span><span><b>Cartão</b><span class="s">Crédito ou débito, na maquininha.</span></span></label>
           <label class="esc"><input type="radio" name="pag" value="dinheiro"><span class="bol"></span><span><b>Dinheiro</b><span class="s">Calculamos o troco.</span></span></label>
+          <label class="esc hide" id="pagOnline"><input type="radio" name="pag" value="online"><span class="bol"></span><span><b>Pagar online</b><span class="s">Pix ou cartão pelo Mercado Pago.</span></span></label>
         </div>
         <div class="msg-erro hide" id="ePag">Escolha a forma de pagamento.</div>
         <div class="cupom-box">
@@ -118,6 +119,10 @@
           <b>Chave Pix da Ponto Car</b>
           <div class="chave" style="margin-top:8px"><code id="pixChaveTxt"></code><button class="btn btn-verde btn-sm" type="button" id="copiarChave">Copiar chave</button></div>
           <p class="prov" style="font-size:13px">Pague só depois que a loja confirmar a disponibilidade.</p>
+        </div>
+        <div class="sub hide" id="subOnline">
+          <b>💳 Pagamento seguro pelo Mercado Pago</b>
+          <p class="prov" style="font-size:13px">Ao finalizar, você vai para a página do Mercado Pago para pagar com Pix ou cartão. Os dados do seu cartão não passam pelo site da Ponto Car. Se alguma peça não servir no seu carro, a loja devolve o valor.</p>
         </div>
         <div class="sub hide" id="subCartao">
           <b>Tipo de cartão</b>
