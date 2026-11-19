@@ -1,6 +1,6 @@
 /* ============================================================
    PONTO CAR — ESTOQUE DA LOJA (estoque.js)
-   Gerado pelo Painel ponto car em 19/11/2026, 10:47:05.
+   Gerado pelo Painel ponto car em 19/11/2026, 10:49:32.
    Para mudar: use o 🔒 Painel no site, clique em "Salvar estoque"
    e suba este arquivo no GitHub (substituindo o antigo).
    ============================================================ */
