@@ -1,11 +1,11 @@
 /* ============================================================
    PONTO CAR — ESTOQUE DA LOJA (estoque.js)
-   Gerado pelo Painel ponto car em 19/11/2026, 10:58:13.
+   Gerado pelo Painel ponto car em 19/11/2026, 11:11:46.
    Para mudar: use o 🔒 Painel no site, clique em "Salvar estoque"
    e suba este arquivo no GitHub (substituindo o antigo).
    ============================================================ */
 window.PONTOCAR = {
-  "atualizado": 1794930407444,
+  "atualizado": 1795097503751,
   "loja": {
     "nome": "Ponto Car",
     "frase": "O ponto certo do seu carro",
@@ -150,26 +150,6 @@ window.PONTOCAR = {
       "qtdEstoque": 3
     }
   ],
-  "kits": [
-    {
-      "id": "fmk9fh3",
-      "nome": "Kit Filtro de Ar",
-      "descricao": "Filtro de ar do motor + filtro de ar-condicionado para Chevrolet S10 2012 em diante. Tudo pra revisão em um pedido só.",
-      "itens": [
-        {
-          "pid": "2fnalxp",
-          "oi": -1,
-          "qtd": 1
-        },
-        {
-          "pid": "zvqxgpn",
-          "oi": -1,
-          "qtd": 1
-        }
-      ],
-      "preco": 114.9,
-      "ativo": true
-    }
-  ],
+  "kits": [],
   "cupons": []
 };
