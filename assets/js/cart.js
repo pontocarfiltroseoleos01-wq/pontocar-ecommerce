@@ -215,7 +215,7 @@ const PAG_NOME = { pix:'Pix', credito:'Cartão de crédito (maquininha)', debito
 
 /* ---------- Pagamento online (Mercado Pago) ---------- */
 // 'teste' = só aparece abrindo o carrinho com ?mpteste=1 · 'ligado' = aparece para todos · 'desligado' = some
-const MP_ONLINE = 'teste';
+const MP_ONLINE = 'ligado';
 (function(){ try { if (/[?&]mpteste=1/.test(location.search)) sessionStorage.setItem('pc_mpteste', '1'); } catch(e){} })();
 function mpLigado(){
   if (MP_ONLINE === 'ligado') return true;
