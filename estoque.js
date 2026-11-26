@@ -1,6 +1,6 @@
 /* ============================================================
    PONTO CAR — ESTOQUE DA LOJA (estoque.js)
-   Gerado pelo Painel ponto car em 26/11/2026, 09:38:44.
+   Gerado pelo Painel ponto car em 26/11/2026, 19:20:17.
    Para mudar: use o 🔒 Painel no site, clique em "Salvar estoque"
    e suba este arquivo no GitHub (substituindo o antigo).
    ============================================================ */
@@ -10,8 +10,7 @@ window.PONTOCAR = {
     "nome": "Ponto Car",
     "frase": "O ponto certo do seu carro",
     "whatsapp": [
-      "5516994253489",
-      "5516992029422"
+      "5516994253489"
     ],
     "pixChave": "16994253489",
     "pixTipo": "telefone",
