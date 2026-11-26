@@ -112,18 +112,18 @@ function textoPrivacidade(){
   const L = D.loja; const zaps = (L.whatsapp || []).filter(Boolean).map(fone);
   const contato = zaps.length ? `pelo WhatsApp ${zaps.map(esc).join(' ou ')}` : 'pelos nossos canais de atendimento';
   return `<div class="priv-txt">
-    <p><b>Última atualização:</b> 17/11/2026</p>
+    <p><b>Última atualização:</b> 26/11/2026</p>
     <h3>1. Quem somos</h3>
     <p>A <b>Ponto Car</b>${L.endereco ? ` (${esc(L.endereco)})` : ''} é a responsável (controladora) pelos dados pessoais coletados neste site, nos termos da Lei Geral de Proteção de Dados — Lei nº 13.709/2018 (LGPD).</p>
     <h3>2. Quais dados coletamos</h3>
     <p>Quando você faz um pedido, coletamos:</p>
     <ul><li>no <b>cadastro</b>: nome completo, CPF, e-mail, telefone e endereço; a senha fica guardada de forma criptografada e nem a loja consegue vê-la;</li><li>no <b>pedido</b>: dados do carro (marca, modelo, ano, versão), itens, forma de pagamento escolhida, cupom, endereço de entrega e observações.</li></ul>
-    <p>O <b>CPF</b> é usado para identificar quem fez a compra, evitar fraudes e emitir a nota fiscal. Não pedimos dados de cartão: o pagamento é feito na entrega, na retirada ou por Pix direto para a loja.</p>
+    <p>O <b>CPF</b> é usado para identificar quem fez a compra, evitar fraudes e emitir a nota fiscal. O site não recebe nem guarda dados de cartão. Você pode pagar na entrega, na retirada, por Pix direto para a loja ou online pelo Mercado Pago; no pagamento online, os dados do cartão são digitados direto no site do Mercado Pago.</p>
     <h3>3. Para que usamos</h3>
-    <ul><li>criar e manter a sua conta de cliente;</li><li>registrar, separar e entregar o seu pedido;</li><li>emitir nota fiscal;</li><li>conferir se as peças servem no seu carro;</li><li>falar com você sobre o pedido (telefone ou WhatsApp);</li><li>cumprir obrigações legais, como as fiscais e as do Código de Defesa do Consumidor;</li><li>proteger o site contra pedidos falsos.</li></ul>
+    <ul><li>criar e manter a sua conta de cliente;</li><li>registrar, separar e entregar o seu pedido;</li><li>processar o pagamento online, quando você escolhe essa opção;</li><li>emitir nota fiscal;</li><li>conferir se as peças servem no seu carro;</li><li>falar com você sobre o pedido (telefone ou WhatsApp);</li><li>cumprir obrigações legais, como as fiscais e as do Código de Defesa do Consumidor;</li><li>proteger o site contra pedidos falsos.</li></ul>
     <p>Fazemos isso com base na execução do contrato de compra (art. 7º, V, da LGPD), no cumprimento de obrigação legal (art. 7º, II) e no legítimo interesse de prevenir fraudes (art. 7º, IX). <b>Não vendemos seus dados</b> e não os usamos para propaganda sem a sua autorização.</p>
     <h3>4. Com quem os dados são compartilhados</h3>
-    <ul><li><b>Supabase</b>: serviço onde fica o banco de dados dos pedidos. Os servidores podem ficar fora do Brasil, com as garantias previstas no art. 33 da LGPD.</li><li><b>GitHub Pages</b>: serviço que hospeda este site.</li><li><b>Google Fonts</b>: o site carrega as letras (fontes) do Google, que pode receber o endereço IP do seu aparelho.</li><li><b>WhatsApp</b>: só quando você escolhe falar com a loja por lá.</li><li>Autoridades públicas, quando a lei exigir.</li></ul>
+    <ul><li><b>Supabase</b>: serviço onde fica o banco de dados dos pedidos. Os servidores podem ficar fora do Brasil, com as garantias previstas no art. 33 da LGPD.</li><li><b>Cloudflare</b>: serviço que hospeda este site.</li><li><b>Mercado Pago</b>: quando você escolhe pagar online, recebe o número do pedido, o valor e o seu e-mail para processar o pagamento.</li><li><b>Google Fonts</b>: o site carrega as letras (fontes) do Google, que pode receber o endereço IP do seu aparelho.</li><li><b>WhatsApp</b>: só quando você escolhe falar com a loja por lá.</li><li>Autoridades públicas, quando a lei exigir.</li></ul>
     <h3>5. Dados guardados no seu aparelho</h3>
     <p>Para facilitar, o site guarda no navegador do <b>seu</b> aparelho o carrinho, o acesso à sua conta (para você não precisar entrar toda vez) e a lista dos seus pedidos. Você pode apagar tudo limpando os dados do navegador. Não usamos cookies de propaganda nem de rastreamento.</p>
     <h3>6. Por quanto tempo guardamos</h3>
